@@ -11,7 +11,7 @@ public class EntityBase
     public DateTime UpdateDate { get; set; }
 
     public string UserRemove { get; set; }
-    public bool IsRemove { get; set; }
+    public bool IsRemove { get; set; } = false;
     public DateTime RemoveDate { get; set; }
 
 
