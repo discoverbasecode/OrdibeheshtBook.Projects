@@ -100,6 +100,45 @@ public class User : AggregateRoot
 
     #endregion
 
+    #region Add - Edit - Remove Wallet Methods
+
+
+    public void ChargeWallet(Wallet wallet) => Wallets.Add(wallet);
+
+    public void ChargeWallet(List<UserRole> roles)
+    {
+        UserRoles.Clear();
+        UserRoles.AddRange(roles);
+    }
+
+
+    #endregion
+
+    #region Validation Rules
+
+    private void ValidationRules(string phoneNumber, string email, IUserDomainService userService)
+    {
+
+        NullOrEmptyDomainDataException.CheckString(phoneNumber, nameof(phoneNumber));
+        NullOrEmptyDomainDataException.CheckString(email, nameof(email));
+
+        if (phoneNumber.Length != 11) throw new InvalidDomainDataException("تلفن همراه صحیح نیست");
+
+        if (email.IsValidEmail() == false) throw new InvalidDomainDataException("ایمیل صحیح نیست");
+
+        if (phoneNumber == PhoneNumber) return;
+
+        if (userService.IsPhoneNumberExist(phoneNumber))
+            throw new InvalidDomainDataException("شما با این تلفن همراه قبلا ثبت نام کرده اید");
+
+
+        if (email == Email) return;
+
+        if (userService.IsEmailExist(email))
+            throw new InvalidDomainDataException("شما با این ایمیل قبلا ثبت نام کرده اید");
+    }
+
+    #endregion
 
 }
 
