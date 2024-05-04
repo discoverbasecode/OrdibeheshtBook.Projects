@@ -53,6 +53,52 @@ public class User : AggregateRoot
     }
 
     #endregion
+  
+    #region Add - Edit - Remove User Address Methods
+
+
+    public void AddAddress(UserAddress address)
+    {
+        address.UserId = Id;
+        UserAddresses.Add(address);
+    }
+
+    public void EditAddress(UserAddress address)
+    {
+        var findAddress = UserAddresses.FirstOrDefault(c => c.UserId == address.Id);
+        if (findAddress == null)
+            throw new NullOrEmptyDomainDataException("آدرس یافت نشد");
+
+        UserAddresses.Remove(findAddress);
+        findAddress.UpdateDate = DateTime.Now;
+        UserAddresses.Add(address);
+
+    }
+
+    public void RemoveAddress(long addressId)
+    {
+        var findAddress = UserAddresses.FirstOrDefault(c => c.UserId == addressId);
+        if (findAddress == null)
+            throw new NullOrEmptyDomainDataException("آدرس یافت نشد");
+        findAddress.RemoveDate = DateTime.Now;
+        findAddress.IsRemove = true;
+        UserAddresses.Remove(findAddress);
+    }
+
+    //public void StatusAddress(long addressId)
+    //{
+    //    var findAddress = UserAddresses.FirstOrDefault(c => c.UserId == addressId);
+    //    if (findAddress == null)
+    //        throw new NullOrEmptyDomainDataException("آدرس یافت نشد");
+
+    //    UserAddresses.Remove(findAddress);
+    //    findAddress.UpdateDate = DateTime.Now;
+    //    findAddress.IsRemove;
+    //    UserAddresses.Add(address);
+    //}
+
+
+    #endregion
 
 
 }
