@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Text;
+using Common.Application.Validation;
 using FluentValidation;
 using MediatR;
 
-namespace Common.Application.Validation
+namespace Framework.Core.Common.Application.Validation
 {
     public class CommandValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
@@ -40,6 +36,11 @@ namespace Common.Application.Validation
             }
             var response = await next();
             return response;
+        }
+
+        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

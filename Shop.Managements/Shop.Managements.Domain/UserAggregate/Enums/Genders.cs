@@ -4,4 +4,5 @@ public enum Genders
 {
     Woman,
     Man,
+    None,
 }

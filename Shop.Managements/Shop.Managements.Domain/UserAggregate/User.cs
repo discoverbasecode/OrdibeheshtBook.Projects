@@ -53,7 +53,16 @@ public class User : AggregateRoot
     }
 
     #endregion
-  
+
+    #region Register Method
+
+    public static User RegisterUser(string phoneNumber, string password, IUserDomainService userService)
+    {
+        return new User("", "", phoneNumber, "", password, Genders.None, userService);
+    }
+
+    #endregion
+
     #region Add - Edit - Remove User Address Methods
 
 
