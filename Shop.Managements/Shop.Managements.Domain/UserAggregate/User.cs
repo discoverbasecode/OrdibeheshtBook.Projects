@@ -114,8 +114,9 @@ public class User : AggregateRoot
 
     public void ChargeWallet(Wallet wallet) => Wallets.Add(wallet);
 
-    public void ChargeWallet(List<UserRole> roles)
+    public void SetRoles(List<UserRole> roles)
     {
+        roles.ForEach(r => r.UserId = Id);
         UserRoles.Clear();
         UserRoles.AddRange(roles);
     }
